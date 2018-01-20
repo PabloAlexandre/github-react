@@ -1,21 +1,21 @@
 import React from 'react'
 import reactDOM from 'react-dom'
+import Wrapper from './js/index'
 import { AppContainer } from 'react-hot-loader'
-import App from './js/index'
 
-const render = (Component) => {
+const render = (App) => {
   reactDOM.render(
     <AppContainer>
-      <Component />
+      <App />
     </AppContainer>,
     document.getElementById('app')
   )
 }
 
-render(App)
+render(Wrapper)
 
 if(module.hot){
   module.hot.accept('./js/index', () => {
-    render(App)
+    render(Wrapper)
   })
 }

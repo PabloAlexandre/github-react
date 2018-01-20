@@ -1,7 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {BrowserRouter as Router} from 'react-router-dom'
+import Routes from './routes'
 
-export default ({hello = 'Waiting for prospssd'}) => (
-  <div>
-    <p className='w-80 center'>{hello}</p>
-  </div>
+export default () => (
+  <Router>
+    <Routes />
+  </Router>
 )
