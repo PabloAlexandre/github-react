@@ -2,21 +2,19 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const paths = {
-  dist: path.resolve(__dirname, 'build/'),
-  src: path.resolve(__dirname, 'src/'),
-}
-
 module.exports = {
-  entry: path.join(paths.src, 'index.js'),
+  entry: [
+    'react-hot-loader/patch',
+    './src/index.js',
+  ],
   output: {
-    path: paths.dist,
+    path: path.resolve(__dirname, 'build/'),
     filename: 'app.js',
     publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(paths.src, 'templates', 'index.html'),
+      template: path.join('./src/', 'templates', 'index.html'),
     }),
     new ExtractTextPlugin('style.css'),
   ],
