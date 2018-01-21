@@ -45,5 +45,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      pages: './pages',
+      misc: './misc'
+    },
   },
 }

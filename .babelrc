@@ -1,8 +1,6 @@
 {
   "presets": [[
-    "env", {
-      "modules": false
-    }
+    "env"
   ], "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": ["react-hot-loader/babel", "import-glob", "transform-object-rest-spread"]
 }
