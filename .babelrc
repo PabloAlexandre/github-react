@@ -1,6 +1,18 @@
 {
-  "presets": [[
-    "env"
-  ], "react"],
-  "plugins": ["react-hot-loader/babel", "import-glob", "transform-object-rest-spread"]
+  "env": {
+    "development": {
+      "presets": [[
+        "env", {"modules": false}
+      ], "react"]
+    },
+    "test": {
+      "presets": [[
+        "env"
+      ], "react"]
+    }
+  },
+  "plugins": ["react-hot-loader/babel", "import-glob", "transform-object-rest-spread", ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+  }]]
 }

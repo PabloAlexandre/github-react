@@ -1,4 +1,5 @@
 export const SET_INPUT_VALUE = 'HOME_SET_INPUT_VALUE'
+
 const defaultValue = {
   search: ''
 }

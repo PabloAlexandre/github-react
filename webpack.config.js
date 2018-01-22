@@ -46,8 +46,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      pages: './pages',
-      misc: './misc'
+      pages: path.resolve(__dirname, 'src/js/pages'),
+      misc: path.resolve(__dirname, 'src/js/misc'),
+      '~': path.resolve(__dirname, 'src/js')
     },
   },
 }
