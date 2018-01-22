@@ -34,7 +34,7 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         use: [
-          'file-loader?name=public/icons/[name].[ext]',
+          'file-loader?name=public/images/[name].[ext]',
         ],
       },
       {
@@ -48,6 +48,7 @@ module.exports = {
     alias: {
       pages: path.resolve(__dirname, 'src/js/pages'),
       misc: path.resolve(__dirname, 'src/js/misc'),
+      src: path.resolve(__dirname, 'src'),
       '~': path.resolve(__dirname, 'src/js')
     },
   },

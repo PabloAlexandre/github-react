@@ -1,6 +1,11 @@
-import { qs, reduce } from '../helpers'
+import { qs, reduce, sortObject } from '../helpers'
 
 describe('Test all methods registered in generic helpers file', () => {
+  const mockedObj = [
+    {stars: 2, name: 'A'},
+    {stars: 3, name: 'B'},
+    {stars: 1, name: 'C'},
+  ]
 
   test('Check if reduce method keeps correctly output from object', () => {
     const obj = {a: 12, b: 24}
@@ -21,4 +26,37 @@ describe('Test all methods registered in generic helpers file', () => {
     expect(qs({a: true, b: false})).toBe('a=true')
   })
 
+  test('Check if sort object with quicksort and with even length works correctly', () => {
+    expect(sortObject(mockedObj, 'stars')).toEqual([
+      {stars: 3, name: 'B'},
+      {stars: 2, name: 'A'},
+      {stars: 1, name: 'C'},
+    ])
+  })
+
+  test('Check if sort object with quicksort and with odd length works correctly', () => {
+    expect(sortObject([...mockedObj, {stars: 5, name: 'D'}], 'stars')).toEqual([
+      {stars: 5, name: 'D'},
+      {stars: 3, name: 'B'},
+      {stars: 2, name: 'A'},
+      {stars: 1, name: 'C'}
+    ])
+  })
+
+  test('Check if sort object with quicksort and object has equal values works correctly', () => {
+    expect(sortObject([...mockedObj, {stars: 1, name: 'D'}], 'stars')).toEqual([
+      {stars: 3, name: 'B'},
+      {stars: 2, name: 'A'},
+      {stars: 1, name: 'D'},
+      {stars: 1, name: 'C'}
+    ])
+  })
+
+  test('Check if sort object (ASC) with quicksort works correctly', () => {
+    expect(sortObject(mockedObj, 'stars', true)).toEqual([
+      {stars: 1, name: 'C'},
+      {stars: 2, name: 'A'},
+      {stars: 3, name: 'B'}
+    ])
+  })
 })

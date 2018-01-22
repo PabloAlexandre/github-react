@@ -22,3 +22,31 @@ export const reduce = (property, callback, defaultValue = null) => {
 
   return current
 }
+
+export const sortObject = (arr, propertyName, asc = false) => {
+  const quicksort = (array, left, right) => {
+    let i = left
+    let j = right
+    let pivot = array[parseInt((i + j) / 2)][propertyName]
+
+    while(i <= j){
+      while(array[i][propertyName] < pivot) i++
+      while(array[j][propertyName] > pivot) j--
+
+      if(i <= j){
+        const swap = array[i]
+        array[i++] = array[j]
+        array[j--] = swap
+      } 
+
+      if(j > left) quicksort(array, left, j)
+      if(i < right) quicksort(array, i, right)
+    }
+
+    return array
+  }
+
+  let copy = [...arr]
+  copy = quicksort(copy, 0, copy.length - 1)
+  return !asc ? copy.reverse() : copy
+}
