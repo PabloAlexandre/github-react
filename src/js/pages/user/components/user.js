@@ -4,7 +4,7 @@ import Repositories from './repositories'
 import bg from 'src/images/header.jpg'
 import {header, avatar, left} from './style.css'
 
-export default ({user, sortRepository = () => {}}) => {
+export default ({user, changeRepositorySort = () => {}}) => {
   console.log(user)
   return (
     <div>
@@ -22,13 +22,13 @@ export default ({user, sortRepository = () => {}}) => {
           <div className={`w-70 dib`}>
             <h2>Repository List</h2>
             <label>Sort by</label>
-            <select>
-              <option value="StarsDesc">By Stars (DESC)</option>
-              <option value="StarsAsc">By Stars (ASC)</option>
-              <option value="WatchersDesc">By Watchers (DESC)</option>
-              <option value="WatchersAsc">By Watchers (ASC)</option>
-              <option value="ForksDesc">By Forks (DESC)</option>
-              <option value="ForksAsc">By WatchForksers (ASC)</option>
+            <select onChange={changeRepositorySort}>
+              <option value="stargazers_desc">By Stars (DESC)</option>
+              <option value="stargazers_asc">By Stars (ASC)</option>
+              <option value="watchers_desc">By Watchers (DESC)</option>
+              <option value="watchers_asc">By Watchers (ASC)</option>
+              <option value="forks_desc">By Forks (DESC)</option>
+              <option value="forks_asc">By Forks (ASC)</option>
             </select>
             <Repositories repositories={user.repositories} />
           </div>

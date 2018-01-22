@@ -8,6 +8,7 @@ import UserComponent from './components/user'
 export class User extends Component {
   constructor(props){
     super(props)
+    this.changeRepositorySort = this.changeRepositorySort.bind(this)
   }
 
   async componentDidMount(){
@@ -17,6 +18,13 @@ export class User extends Component {
     setCurrent(username)
 
     this.loadRepositories(username)
+  }
+
+  changeRepositorySort({target: {value}}){
+    const {current, setRepository, setCurrent, current: {login: username}} = this.props
+    const [sortBy, asc] = value.split('_')
+    setRepository(username, sortObject(current.repositories, `${sortBy}_count`, asc == 'asc'))
+    setCurrent(username)
   }
 
   async loadRepositories (username, sortBy = 'stargazers', asc = false) {
@@ -30,7 +38,7 @@ export class User extends Component {
   render(){
     const {current, tab} = this.props
     const render = current ? (
-      <UserComponent user={current} tab={tab}/>
+      <UserComponent user={current} tab={tab} changeRepositorySort={this.changeRepositorySort}/>
     ) : ('')
 
     return (
