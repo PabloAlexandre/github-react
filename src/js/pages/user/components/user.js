@@ -1,15 +1,13 @@
 import React from 'react'
 import Info from './info'
 import Repositories from './repositories'
-import bg from 'src/images/header.jpg'
 import {header, avatar, left} from './style.css'
 
 export default ({user, changeRepositorySort = () => {}}) => {
-  console.log(user)
   return (
     <div>
       <div className="db">
-        <div className={`${header} overflow-hidden cover`} style={{backgroundImage:`url(${bg})`}}>
+        <div className={`${header} overflow-hidden cover`}>
           <div className="ma4 white">
             <h1 className="f2-l lh-solid">{user.name}</h1>
           </div>

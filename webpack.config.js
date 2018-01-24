@@ -29,12 +29,20 @@ const dev = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]'],
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]'},
+          {loader: 'postcss-loader', options: {
+            plugins: () => [
+              require('autoprefixer')()
+            ]
+          }}
+        ]
       },
       {
         test: /\.css$/,
         exclude: path.resolve(__dirname,'./src/'),
-        loader: ['style-loader', 'css-loader'],
+        loader: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
