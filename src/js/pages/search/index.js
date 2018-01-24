@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { SearchUser } from './requests'
 import { SET_USER_LIST, SET_PAGE, SET_COMPLETED } from './reducer'
-import User from './components/user'
-import Loading from 'misc/loading/'
+
+import ResultList from './components/resultList/'
+import Header from './components/header/'
 
 export class Search extends Component {
   constructor(props){
@@ -12,9 +13,7 @@ export class Search extends Component {
 
   async componentDidMount(){
     const {match: {params: {query: term}}, users} = this.props
-    if(users.length <= 0){
-      await this.load(term, 1)
-    }
+    if(users.length <= 0) await this.load(term, 1)
   }
 
   async load(term, page = false){
@@ -23,7 +22,7 @@ export class Search extends Component {
 
     setPage(page)
     const response = (await SearchUser(term, page)).data
-    setUsers(response.items)
+    setUsers(response.items, response.total_count)
 
     if(response.total_count == users.length + response.items.length){
       setCompleted(true)
@@ -31,27 +30,14 @@ export class Search extends Component {
   }
 
   render(){
-    const {match: {params: {query: term}}, users, page, done, loading} = this.props
-
-    const render = users.length > 0 ? (
-      <div>
-        {loading ? (<Loading />) : ('')}
-        <p>Loaded Users:  {users.length}</p>
-        {users.map((v, i) => (
-          <User key={`search_users_${i}`} user={v} />
-        ))}
-
-        {!done ? (
-          <div className="mt3">
-            <button className="w-100 pa3" onClick={() => { this.load(term, page + 1) }}>Load more</button>
-          </div>
-        ) : (<div></div>)}
-
-      </div>) :
-      (<div>No users found</div>)
+    const {match: {params: {query: term}}, users, total, page, done, loading} = this.props
+    const loadMore = () => this.load(term, page + 1)
 
     return (
-      <div className="w-80 center db mv3">{render}</div>
+      <div>
+        <Header term={term} total={total} />
+        <ResultList done={done} loading={loading} users={users} loadMore={loadMore} />
+      </div>
     )
   }
 }
@@ -59,7 +45,7 @@ export class Search extends Component {
 export default connect(
   (state) => ({...state.search}),
   (dispatch) => ({
-    setUsers: (users) => dispatch({type: SET_USER_LIST, value: users}),
+    setUsers: (users, total) => dispatch({type: SET_USER_LIST, value: users, total}),
     setPage: (page) => dispatch({type: SET_PAGE, value: page}),
     setCompleted: (state) => dispatch({type: SET_COMPLETED, value: state})
   })

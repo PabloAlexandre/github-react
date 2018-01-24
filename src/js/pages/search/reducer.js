@@ -7,6 +7,7 @@ const defaultValue = {
   users: [],
   loading: false,
   page: 0,
+  total: 0,
   done: false
 }
 
@@ -15,7 +16,7 @@ const search = (state = defaultValue, action) => {
   case INIT_USER_LIST:
     return {...state, users: action.value}
   case SET_USER_LIST:
-    return {...state, users: [...state.users, ...action.value], loading: false}
+    return {...state, users: [...state.users, ...action.value], loading: false, total: action.total}
   case SET_PAGE:
     return {...state, page: action.value, loading: true}
   case SET_COMPLETED:

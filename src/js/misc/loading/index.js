@@ -1,7 +1,7 @@
 import React from 'react'
 import {loading, inner, spinner, cube1, cube2, text as loadingText} from './style.css'
 
-export default ({text= 'Carregando'}) => (
+export default ({text= 'Loading'}) => (
   <div className={loading}>
     <div className={inner}>
       <div className={spinner}>

@@ -1,0 +1,14 @@
+.avatar {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overlay {
+  background: linear-gradient(to left, #4e54c8, #8f94fb);
+  opacity: 0.85;
+}
+.username {
+  font-size: 24px;
+  overflow-wrap: break-word;
+}
