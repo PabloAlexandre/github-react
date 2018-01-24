@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {GetUser, GetRepositories} from './requests'
 import {sortObject} from 'misc/helpers'
 import {SET_REPOSITORIES, SET_USER, SET_CURRENT_USER} from './reducer'
-import UserComponent from './components/user'
+import UserComponentWrapper from './components/'
 
 export class User extends Component {
   constructor(props){
@@ -20,13 +20,6 @@ export class User extends Component {
     this.loadRepositories(username)
   }
 
-  changeRepositorySort({target: {value}}){
-    const {current, setRepository, setCurrent, current: {login: username}} = this.props
-    const [sortBy, asc] = value.split('_')
-    setRepository(username, sortObject(current.repositories, `${sortBy}_count`, asc == 'asc'))
-    setCurrent(username)
-  }
-
   async loadRepositories (username, sortBy = 'stargazers', asc = false) {
     const {setRepository, setCurrent} = this.props
     const response = (await GetRepositories(username)).data
@@ -34,11 +27,17 @@ export class User extends Component {
     setCurrent(username)
   }
 
+  changeRepositorySort({target: {value}}){
+    const {current, setRepository, setCurrent, current: {login: username}} = this.props
+    const [sortBy, asc] = value.split('_')
+    setRepository(username, sortObject(current.repositories, `${sortBy}_count`, asc == 'asc'))
+    setCurrent(username)
+  }
 
   render(){
     const {current, tab} = this.props
     const render = current ? (
-      <UserComponent user={current} tab={tab} changeRepositorySort={this.changeRepositorySort}/>
+      <UserComponentWrapper user={current} tab={tab} changeRepositorySort={this.changeRepositorySort}/>
     ) : ('')
 
     return (

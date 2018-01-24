@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { SearchUser } from './requests'
 import { SET_USER_LIST, SET_PAGE, SET_COMPLETED } from './reducer'
-
 import ResultList from './components/resultList/'
 import Header from './components/header/'
 

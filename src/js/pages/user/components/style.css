@@ -1,13 +1,3 @@
 .header {
   height: 300px;
 }
-
-.avatar {
-  width: 256px;
-  height: 256px;
-  position: absolute;
-  top: -128px;
-}
-.left {
-  padding-top: 128px;
-}

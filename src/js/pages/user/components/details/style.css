@@ -1,0 +1,39 @@
+.avatar {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  padding-top: 170px;
+}
+
+.imageContainer {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  left: 50%;
+  top: -128px;
+  transform: translateX(-50%);
+  background-color: #fff;
+}
+
+.button {
+  background-color: #4e54c8;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 64em) {
+  .imageContainer {
+    width: 200px;
+    height: 200px;
+    top: -100px;
+  }
+  .container {
+    padding-top: 120px;
+  }
+}

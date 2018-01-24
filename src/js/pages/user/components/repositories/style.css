@@ -1,0 +1,13 @@
+.item {
+  background: linear-gradient(to right, #2b5876, #4e4376);
+}
+
+.marker {
+  margin-right: 10px;
+  background-color: transparent;
+  border: 3px solid white;
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,0 +1,42 @@
+.number {
+  font-size: 32px;
+}
+
+.topics {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bar {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 50px;
+}
+
+.informations {
+  line-height: 50px;
+  text-align: right;
+}
+
+.icons {
+  font-size: 28px;
+  padding-top: 5px;
+}
+
+@media screen and (max-width: 64em) {
+  .topics {
+    top: 60px;
+    width: 100%;
+    transform: initial;
+    text-align: center;
+    font-size: 14;
+  }
+
+  .bar {
+    top: 0;
+  }
+
+  .informations {
+    text-align: center;
+  }
+}
