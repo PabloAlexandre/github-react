@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
+const dev = {
   entry: [
     'react-hot-loader/patch',
     './src/index.js',
@@ -15,8 +15,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join('./src/', 'templates', 'index.html'),
-    }),
-    new ExtractTextPlugin('style.css'),
+    })
   ],
   module: {
     rules: [
@@ -29,7 +28,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]'),
+        exclude: /node_modules/,
+        loader: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]'],
+      },
+      {
+        test: /\.css$/,
+        exclude: path.resolve(__dirname,'./src/'),
+        loader: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -53,3 +58,5 @@ module.exports = {
     },
   },
 }
+
+module.exports = dev
