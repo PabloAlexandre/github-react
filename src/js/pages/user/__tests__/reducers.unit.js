@@ -20,35 +20,19 @@ describe('Test all interactions with users reduce' , () => {
       value: mockedUser
     })
 
-    expect(state).toHaveProperty('users')
-    expect(state.users).toHaveLength(1)
-    expect(state.users).toEqual(expect.arrayContaining([mockedUser]))
+    expect(state).toHaveProperty('current')
+    expect(state.current).toEqual(mockedUser)
   })
 
   test('Expect if add repositories in existent user will keep in state', () => {
     state = reducer(state, {
       type: SET_REPOSITORIES,
-      user: mockedUser.login,
       value: mockedRepositories
     })
 
-    expect(state).toHaveProperty('users')
-    expect(state.users).toHaveLength(1)
-    expect(state.users).toEqual(expect.arrayContaining([{
-      ...mockedUser,
-      repositories: mockedRepositories
-    }]))
-  })
-
-  test('Expect if I set current user, this will be setted in state', () => {
-    state = reducer(state, {
-      type: SET_CURRENT_USER,
-      user: 'mylogin'
-    })
-
-    expect(state).toHaveProperty('current', {
-      ...mockedUser,
-      repositories: mockedRepositories
-    })
+    expect(state).toHaveProperty('current')
+    expect(state.current).toHaveProperty('repositories')
+    expect(state.current.repositories).toHaveLength(2)
+    expect(state.current.repositories).toEqual(expect.arrayContaining(mockedRepositories))
   })
 })
