@@ -3,7 +3,7 @@
     "dev": "webpack-dev-server --hot --history-api-fallback --open",
     "lint": "eslint ./src/",
     "test": "BABEL_ENV=test jest",
-    "build": "webpack"
+    "build": "ENV=production webpack"
   },
   "dependencies": {
     "axios": "^0.17.1",
