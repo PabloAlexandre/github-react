@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { SearchUser } from './requests'
-import { SET_USER_LIST, SET_PAGE, SET_COMPLETED } from './reducer'
+import { SET_USER_LIST, SET_PAGE, SET_COMPLETED, RESET_SEARCH } from './reducer'
 import ResultList from './components/resultList/'
 import Header from './components/header/'
 
@@ -11,27 +11,35 @@ export class Search extends Component {
   }
 
   async componentDidMount(){
-    const {match: {params: {query: term}}, users} = this.props
-    if(users.length <= 0) await this.load(term, 1)
+    const {match: {params: {query}}, term, reset} = this.props
+    if(term != query) {
+      reset(query)
+      await this.load(query)
+    }
   }
 
-  async load(term, page = false){
-    const {page: currentPage, users, done, setUsers, setPage, setCompleted} = this.props
-    if(done || page == currentPage) return
+  async load(query){
+    const {setUsers, setPage, setCompleted} = this.props
 
-    setPage(page)
-    const response = (await SearchUser(term, page)).data
-    setUsers(response.items, response.total_count)
+    if(query){
+      setPage(1)
+      const response = (await SearchUser(query, 1)).data
+      setUsers(response.items, response.total_count)
+      setCompleted((response.total_count == response.items.length))
+    } else {
+      const {page: currentPage, users, done, term} = this.props
+      if(done) return
 
-    if(response.total_count == users.length + response.items.length){
-      setCompleted(true)
+      setPage(currentPage + 1)
+      const response = (await SearchUser(term, currentPage + 1)).data
+      setUsers(response.items, response.total_count)
+      setCompleted((response.total_count ==users.length + response.items.length))
     }
   }
 
   render(){
-    const {match: {params: {query: term}}, users, total, page, done, loading} = this.props
-    const loadMore = () => this.load(term, page + 1)
-
+    const { users, total, done, loading, term} = this.props
+    const loadMore = () => this.load()
     return (
       <div>
         <Header term={term} total={total} />
@@ -44,6 +52,7 @@ export class Search extends Component {
 export default connect(
   (state) => ({...state.search}),
   (dispatch) => ({
+    reset: (term) => dispatch({type: RESET_SEARCH, term}),
     setUsers: (users, total) => dispatch({type: SET_USER_LIST, value: users, total}),
     setPage: (page) => dispatch({type: SET_PAGE, value: page}),
     setCompleted: (state) => dispatch({type: SET_COMPLETED, value: state})
