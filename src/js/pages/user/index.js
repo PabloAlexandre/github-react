@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {GetUser, GetRepositories} from './requests'
-import {sortObject} from 'misc/helpers'
-import {SET_REPOSITORIES, SET_USER, SET_CURRENT_USER} from './reducer'
+import {SET_REPOSITORIES, SET_USER, SET_LOADING} from './reducer'
+
+import Loading from 'misc/loading/'
 import UserComponentWrapper from './components/'
+
+import {sortObject} from 'misc/helpers'
+import {GetUser} from './requests'
 
 export class User extends Component {
   constructor(props){
@@ -12,31 +15,25 @@ export class User extends Component {
   }
 
   async componentDidMount(){
-    const {setCurrent, setUser, match: {params: {username}}} = this.props
-    const response = (await GetUser(username)).data
-    setUser(response)
-    setCurrent(username)
+    const {setLoading, setRepository, setUser, match: {params: {username}}} = this.props
 
-    this.loadRepositories(username)
-  }
+    setLoading(true)
 
-  async loadRepositories (username, sortBy = 'stargazers', asc = false) {
-    const {setRepository, setCurrent} = this.props
-    const response = (await GetRepositories(username)).data
-    setRepository(username, sortObject(response, `${sortBy}_count`, asc))
-    setCurrent(username)
+    const response = await GetUser(username)
+    setUser(response[0].data)
+    setRepository(sortObject(response[1].data, `stargazers_count`, false))
+    setLoading(false)
   }
 
   changeRepositorySort({target: {value}}){
-    const {current, setRepository, setCurrent, current: {login: username}} = this.props
+    const {current, setRepository} = this.props
     const [sortBy, asc] = value.split('_')
-    setRepository(username, sortObject(current.repositories, `${sortBy}_count`, asc == 'asc'))
-    setCurrent(username)
+    setRepository(sortObject(current.repositories, `${sortBy}_count`, asc == 'asc'))
   }
 
   render(){
-    const {current, tab} = this.props
-    const render = current ? (
+    const {current, tab, loading} = this.props
+    const render = loading ? (<Loading />) : current ? (
       <UserComponentWrapper user={current} tab={tab} changeRepositorySort={this.changeRepositorySort}/>
     ) : ('')
 
@@ -51,8 +48,8 @@ export class User extends Component {
 export default connect(
   (state) => ({...state.user}),
   (dispatch) => ({
+    setLoading: (state) => dispatch({type: SET_LOADING, value: state}),
     setUser: (user) => dispatch({type: SET_USER, value: user}),
-    setRepository: (user, repositories) => dispatch({type: SET_REPOSITORIES, user, value: repositories}),
-    setCurrent: (user) => dispatch({type: SET_CURRENT_USER, user})
+    setRepository: (repositories) => dispatch({type: SET_REPOSITORIES, value: repositories}),
   })
 )(User)
