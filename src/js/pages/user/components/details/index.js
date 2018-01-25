@@ -7,8 +7,8 @@ export default ({user}) => (
       <img src={user.avatar_url} className={`br-100 ${avatar}`} />
     </div>
 
-    <h1 className="black">{user.name}</h1>
-    <p className="black">{user.bio}</p>
-    <a href={user.html_url} className={`pa3 ${button} db`} target="_blank">See on GitHub</a>
+    <h1 className="black mv4">{user.name}</h1>
+    <p className="black mv4">{user.bio}</p>
+    <a href={user.html_url} className={`pa3  ${button} db`} target="_blank">See on GitHub</a>
   </div>
 )

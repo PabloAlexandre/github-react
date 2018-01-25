@@ -4,11 +4,11 @@ import {item, marker} from './style.css'
 
 const RepositoryItem = ({repository}) => (
   <div className={`br2 ba b--black-10 mv2 w-100 pa3 center relative ${item}`}>
-    <Link to={`/repository/${repository.full_name}`} className="white no-underline">
+    <Link to={`/users/${repository.full_name}`} className="white no-underline">
       <p className="ma0 fw7">{repository.name}</p>
       <p><span className={`br-100 ${marker}`}></span>{repository.language || 'No Language'}</p>
       <p><span className={`br-100 ${marker}`}></span>{repository.license ? repository.license.name : 'No license'}</p>
-      <div className="absolute right-1 top-0">
+      <div className="absolute right-1 top-0-l bottom-0">
         <p className="dib mr3"><i className="fa fa-star"></i> {repository.stargazers_count}</p>
         <p className="dib mr3"><i className="fa fa-code-fork"></i> {repository.forks_count}</p>
         <p className="dib mr3"><i className="fa fa-eye"></i> {repository.stargazers_count}</p>
