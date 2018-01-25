@@ -7,12 +7,10 @@ script:
 cache:
   directories:
   - node_modules
-before_deploy: yarn build && cd build && git init && git add . && git commit -m "New
+before_deploy: yarn build && cp package.json build/ && cd build && git init && git add . && git commit -m "New
   Build Release"
 deploy:
   provider: heroku
   app: github-wrapper
-  on:
-    branch: master
   api_key:
     secure: OBmxBNAAJd5UO4X0uDJOzs+GPyfg7tYXtu8hiJsVxdnO7KkxkehRxLrltzH2Sl8Oy5MsGjo3GBKbDlQ2zh2sc38hxJEv+2fS+qxjPpgqt5XNKzZeiXMcrf68XVaXfuHNLWXOp9DeFO1myrYOVhJmUnLh663wtqW5/YlTLPprlOn6R/O6mXH77Wq3XEOF/gWXnX94/yYXfySdenHTeVvuOTkBw+Z3Zxf5PeFrKIVU/OhHCfQXHVKpQZ43kU4qWOqWrU4WxIdI9vXkf5OYF/6IYwon2DAdEl3ORjXYWDKPnS9DT/AW2ZXVsoVTBqLy6Y6Lt3VtIuuS9LVLObBpT6r2vZPqZmFHUWjrpj5yw75vO2rmx/bLcTTl8Mw2thKLbZTPOzqsgdCjL9T/k/f94HSOq2BsYr8UknAyu1X3hc9UJuXLZm+aC15aQ/1Z00gOtVRLrMfOSG4vctg+pyFWOZG6Qo84zDRGND/L92xmkC63Xy8+jYfuk9+VSqBOdrEEHM4r27sBHQpk04oMyhMK0wW+ihcHWfQehKR2u32sc+ksMlAyNxXu+zPtz7UpcWkp4QW7FWXBJfluWE367r6CQJUe2WeXys26g2l/HH8OGdaAc5XkGRGmMtt/yaGEQR+uA8l/nXnFqS2HidHtQ/k484XMSlpYfwiCu/bRWMsbXXgk/y4=
