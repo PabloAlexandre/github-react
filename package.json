@@ -3,7 +3,7 @@
     "dev": "webpack-dev-server --hot --history-api-fallback --open",
     "lint": "eslint ./src/",
     "test": "BABEL_ENV=test jest",
-    "build": "webpack"
+    "build": "ENV=production webpack"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -46,6 +46,10 @@
     "setupFiles": [
       "./test/setup.js"
     ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/test/fileMock.js"
+    },
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.(css|scss|less)$": "jest-css-modules"
