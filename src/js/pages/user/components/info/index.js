@@ -15,12 +15,12 @@ const Information = ({icon, value}) => (
 )
 export default ({user}) => (
   <div>
-    <div className={`${topics} absolute`}>
+    <div className={`${topics} absolute pr4`}>
       <Topic name="repositories" value={user.public_repos} />
       <Topic name="followers" value={user.followers} />
       <Topic name="following" value={user.following} />
     </div>
-    <div className={`${bar} absolute w-100 bottom-0 `}>
+    <div className={`${bar} absolute w-100 bottom-0 pr4`}>
       <div className={` ${informations}`}>
         <Information icon="github-alt" value={user.login} />
         <Information icon="map-marker" value={user.location} />

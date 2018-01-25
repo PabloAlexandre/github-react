@@ -1,0 +1,14 @@
+.commit_item {
+  border-left: 2px solid #4e54c8;
+}
+
+.marker {
+  position: absolute;
+  left: -11px;
+  background-color: white;
+  border: 3px solid #4e54c8;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
